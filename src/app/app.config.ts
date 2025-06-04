@@ -1,16 +1,51 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+// import { ApplicationConfig } from '@angular/core';
+// import { provideRouter } from '@angular/router';
 
+// import { routes } from './app.routes';
+// import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+// import { provideHttpClient } from '@angular/common/http';
+
+// import { MatNativeDateModule } from '@angular/material/core';   // muss importiert werden für datepicker
+// import { importProvidersFrom } from '@angular/core';
+// import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+// import { getFirestore, provideFirestore } from '@angular/fire/firestore';    // muss importiert werden für datepicker
+
+// export const appConfig: ApplicationConfig = {
+//   providers: [provideRouter(routes),
+//   provideAnimationsAsync(),
+//   provideHttpClient(),
+//   importProvidersFrom(MatNativeDateModule), provideFirebaseApp(() => initializeApp({"projectId":"simplecrm-80a5b","appId":"1:805197682589:web:04d2c819a4b5b7588dc174","storageBucket":"simplecrm-80a5b.firebasestorage.app","apiKey":"AIzaSyDiLcAldhsOGjYsIbbQup2xNxIbFO5Hjy0","authDomain":"simplecrm-80a5b.firebaseapp.com","messagingSenderId":"805197682589"})), provideFirestore(() => getFirestore())]   // muss importiert werden für datepicker
+// };
+
+
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
+
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 
-import { MatNativeDateModule } from '@angular/material/core';   // muss importiert werden für datepicker
-import { importProvidersFrom } from '@angular/core';    // muss importiert werden für datepicker
+import { MatNativeDateModule } from '@angular/material/core';
 
-export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),
-  provideAnimationsAsync(),
-  provideHttpClient(),
-  importProvidersFrom(MatNativeDateModule)]   // muss importiert werden für datepicker
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+
+export const appConfig: ApplicationConfig = {     // der kommende part ist um das projekt mit der firebase backend zu verbinden
+  providers: [
+    provideRouter(routes),
+    provideAnimationsAsync(),
+    provideHttpClient(),
+    importProvidersFrom(MatNativeDateModule),
+    provideFirebaseApp(() =>
+      initializeApp({
+        apiKey: "AIzaSyDiLcAldhsOGjYsIbbQup2xNxIbFO5Hjy0",
+        authDomain: "simplecrm-80a5b.firebaseapp.com",
+        projectId: "simplecrm-80a5b",
+        storageBucket: "simplecrm-80a5b.appspot.com",
+        messagingSenderId: "805197682589",
+        appId: "1:805197682589:web:04d2c819a4b5b7588dc174"
+      })
+    ),
+    provideFirestore(() => getFirestore())
+  ]
 };
